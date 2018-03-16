@@ -1,7 +1,7 @@
 {
   "name": "jotjunior/php-utcode",
   "description": "UTCode from Umgeher Torgersen",
-  "license": "FreeBSD",
+  "license": "MIT",
   "keywords": [
     "php",
     "utcode"
