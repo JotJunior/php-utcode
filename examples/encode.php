@@ -8,7 +8,7 @@ use UTCode\Encode;
 $array = [
     'id'        => 1,
     'firstName' => 'John',
-    'lastName'  => 'doe',
+    'lastName'  => 'Doe',
     'ratio'     => 3.8,
     'category'  => [
         'id'   => 1234,
@@ -33,14 +33,14 @@ echo $code, PHP_EOL;
 // Encoding a json string
 $json
     = '{
-   "id": 1,
-   "firstName": "John",
-   "lastName": "Doe",
-   "ratio": 3.8,
    "category": {
        "id": 1234,
        "name": "Test User"
-   }
+   },
+   "firstName": "John",
+   "id": 1,
+   "lastName": "Doe",
+   "ratio": 3.8
 }';
 $code = new Encode($json);
 echo $code, PHP_EOL;

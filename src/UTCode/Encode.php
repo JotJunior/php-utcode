@@ -77,7 +77,7 @@ class Encode
      */
     private function encodeFloat(float $part, string $key): string
     {
-        return \sprintf('k%d:%sf:%fe', \strlen($key), $key, $part);
+        return \sprintf('k%d:%sf:%fz', \strlen($key), $key, $part);
     }
 
     /**
@@ -103,22 +103,22 @@ class Encode
     }
 
     /**
-     * @param array  $data
+     * @param array  $part
      * @param string $key
      *
      * @return string
      */
-    private function encodeArray(array $data, string $key)
+    private function encodeArray(array $part, string $key)
     {
-        \ksort($data);
+        \ksort($part);
         $key = ('integer' === \gettype($key)) ? '' : $key;
         $type = ('string' === \gettype($key)) ? 'd' : 'a';
         $result = ($key) ? \sprintf('k%d:%s%s:', \strlen($key), $key, $type)
             : \sprintf('%s%s:', $type, $key);
-        foreach ($data as $key => $value) {
+        foreach ($part as $key => $value) {
             $result .= $this->encode($value, $key);
         }
-        return $result;
+        return $result . 'e';
     }
 
     /**
@@ -129,11 +129,7 @@ class Encode
      */
     private function encodeString(string $part, string $key)
     {
-        if (Common::isUnicode($part)) {
-            return $this->encodeUnicode($part, $key);
-        }
-        return \sprintf('k%d:%ss%d:%se', \strlen($key), $key, \strlen($part),
-            $part);
+        return $this->encodeUnicode($part, $key);
     }
 
     /**
@@ -145,7 +141,7 @@ class Encode
     private function encodeUnicode(string $part, string $key): string
     {
         $str = \base64_encode($part);
-        return \sprintf('k%d:%su%d:%se', \strlen($key), $key, \strlen($str),
+        return \sprintf('k%d:%su%d:%s', \strlen($key), $key, \strlen($str),
             $str);
     }
 
