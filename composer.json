@@ -1,0 +1,16 @@
+{
+  "name": "jotjunior/php-utcode",
+  "description": "UTCode from Umgeher Torgersen",
+  "license": "FreeBSD",
+  "keywords": [
+    "php",
+    "utcode"
+  ],
+  "homepage": "https://gitlab.com/jotjunior/php-utcode",
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-0": {
+      "Access": "src/"
+    }
+  }
+}
