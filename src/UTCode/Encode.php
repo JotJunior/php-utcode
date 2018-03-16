@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jot
- * Date: 16/03/2018
- * Time: 09:37
- */
 
 namespace UTCode;
 
@@ -24,6 +18,11 @@ class Encode
      */
     public function __construct($data)
     {
+        if (\is_object($data)) {
+            $data = Common::objectToArray($data);
+        } elseif (Common::isJson($data)) {
+            $data = \json_decode($data, JSON_OBJECT_AS_ARRAY);
+        }
         $this->data = $data;
     }
 
@@ -130,7 +129,7 @@ class Encode
      */
     private function encodeString(string $part, string $key)
     {
-        if ($this->isUnicode($part)) {
+        if (Common::isUnicode($part)) {
             return $this->encodeUnicode($part, $key);
         }
         return \sprintf('k%d:%ss%d:%se', \strlen($key), $key, \strlen($part),
@@ -149,17 +148,5 @@ class Encode
         return \sprintf('k%d:%su%d:%se', \strlen($key), $key, \strlen($str),
             $str);
     }
-
-    /**
-     * @param string $string
-     *
-     * @return bool
-     */
-    private function isUnicode(string $string): bool
-    {
-        return (\mb_strlen($string) !== \strlen($string)
-            || false !== \strpos($string, ' '));
-    }
-
 
 }
