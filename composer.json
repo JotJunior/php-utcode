@@ -7,7 +7,6 @@
     "utcode"
   ],
   "homepage": "https://gitlab.com/jotjunior/php-utcode",
-  "minimum-stability": "dev",
   "autoload": {
     "psr-0": {
       "UTCode": "src/"
