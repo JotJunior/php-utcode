@@ -23,7 +23,7 @@ echo $code, PHP_EOL;
 ```
 
 Result:
-```ut:d:k8:categoryd:k2:idi:1234ek4:nameu12:VGVzdCBVc2Vyek9:firstNames4:Johnek2:idi:1ek8:lastNames3:doeek5:ratiof:3.800000e```
+```ut:d:k2:idi:1ek9:firstNameu8:Sm9obg==k8:lastNameu4:RG9lk5:ratiof:3.800000zk8:categoryd:k2:idi:1234ek4:nameu12:VGVzdCBVc2Vyee```
 
 #### Encoding a PHP Object
 
@@ -41,7 +41,7 @@ echo $code, PHP_EOL;
 ``` 
 
 Result:
-```ut:d:k8:categoryd:k2:idi:1234ek4:nameu12:VGVzdCBVc2Vyek9:firstNames4:Johnek2:idi:1ek8:lastNames3:doeek5:ratiof:3.800000e```
+```ut:d:k2:idi:1ek9:firstNameu8:Sm9obg==k8:lastNameu4:RG9lk5:ratiof:3.800000zk8:categoryd:k2:idi:1234ek4:nameu12:VGVzdCBVc2Vyee```
 
 #### Encoding a JSON string
 ```php
@@ -61,4 +61,4 @@ echo $code, PHP_EOL;
 ```
 
 Result:
-```ut:d:k8:categoryd:k2:idi:1234ek4:nameu12:VGVzdCBVc2Vyek9:firstNames4:Johnek2:idi:1ek8:lastNames3:doeek5:ratiof:3.800000e```
+```ut:d:k2:idi:1ek9:firstNameu8:Sm9obg==k8:lastNameu4:RG9lk5:ratiof:3.800000zk8:categoryd:k2:idi:1234ek4:nameu12:VGVzdCBVc2Vyee```
