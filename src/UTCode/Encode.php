@@ -18,10 +18,10 @@ class Encode
      */
     public function __construct($data)
     {
-        if (\is_object($data)) {
-            $data = Common::objectToArray($data);
+        if (\is_array($data)) {
+            $data = \json_decode(\json_encode($data));
         } elseif (Common::isJson($data)) {
-            $data = \json_decode($data, JSON_OBJECT_AS_ARRAY);
+            $data = \json_decode($data);
         }
         $this->data = $data;
     }
@@ -50,11 +50,14 @@ class Encode
     }
 
     /**
+     * @param null   $data
+     * @param string $key
+     *
      * @return string
      */
-    private function encodeNull(): string
+    private function encodeNull($data = null, $key = ''): string
     {
-        return 'n:e';
+        return \sprintf('k%d:%sn:e', \strlen($key), $key);
     }
 
     /**
@@ -65,7 +68,7 @@ class Encode
      */
     private function encodeBoolean(bool $part, string $key): string
     {
-        return \sprintf('k%d:%sb:%be', \strlen($key), $key,
+        return \sprintf('k%d:%sb:%b', \strlen($key), $key,
             (int)($part === true));
     }
 
@@ -103,23 +106,31 @@ class Encode
     }
 
     /**
-     * @param array  $part
-     * @param string $key
+     * @param \stdClass $part
+     * @param string    $key
      *
      * @return string
      */
-    private function encodeArray(array $part, string $key)
+    private function encodeObject(\stdClass $part, string $key): string
     {
-        \ksort($part);
-        $key = ('integer' === \gettype($key)) ? '' : $key;
-        $type = ('string' === \gettype($key)) ? 'd' : 'a';
-        $result = ($key) ? \sprintf('k%d:%s%s:', \strlen($key), $key, $type)
-            : \sprintf('%s%s:', $type, $key);
+        $result = ($key) ? \sprintf('k%d:%sd:', \strlen($key), $key)
+            : \sprintf('d%s:', $key);
         foreach ($part as $key => $value) {
             $result .= $this->encode($value, $key);
         }
         return $result . 'e';
     }
+
+    private function encodeArray(array $part, string $key): string
+    {
+        $result = [];
+        foreach ($part as $sub) {
+            \array_push($result, $this->encode($sub, ''));
+        }
+        return \sprintf('k%d:%sl:%s', \strlen($key), $key,
+                \implode('', $result)) . 'e';
+    }
+
 
     /**
      * @param string $part
@@ -127,7 +138,7 @@ class Encode
      *
      * @return string
      */
-    private function encodeString(string $part, string $key)
+    private function encodeString(string $part, string $key): string
     {
         return $this->encodeUnicode($part, $key);
     }
@@ -141,8 +152,8 @@ class Encode
     private function encodeUnicode(string $part, string $key): string
     {
         $str = \base64_encode($part);
-        return \sprintf('k%d:%su%d:%s', \strlen($key), $key, \strlen($str),
-            $str);
+        $kLen = \strlen($key) ? \sprintf('k%d:%s', \strlen($key), $key) : '';
+        return \sprintf('%su%d:%s', $kLen, \strlen($str), $str);
     }
 
 }
