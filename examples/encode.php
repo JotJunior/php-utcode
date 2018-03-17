@@ -15,8 +15,10 @@ $array = [
         'name' => 'Test User'
     ]
 ];
+
 $code = new Encode($array);
 echo $code, PHP_EOL;
+
 
 // Encoding and Object
 $object = new \stdClass();
@@ -27,8 +29,10 @@ $object->ratio = 3.8;
 $object->category = new \stdClass();
 $object->category->id = 1334;
 $object->category->name = 'Test User';
+
 $code = new Encode($object);
 echo $code, PHP_EOL;
+
 
 // Encoding a json string
 $json
@@ -42,6 +46,7 @@ $json
    "lastName": "Doe",
    "ratio": 3.8
 }';
+
 $code = new Encode($json);
 echo $code, PHP_EOL;
 
