@@ -1,7 +1,11 @@
 # UTCode for PHP
 
 ### Install via Composer
-```$ composer require jotjunior/php-utcode:dev-master```
+```shell
+$ mkdir project_name
+$ cd project_name
+$ composer require jotjunior/php-utcode:dev-master
+```
 
 ### Examples
 
